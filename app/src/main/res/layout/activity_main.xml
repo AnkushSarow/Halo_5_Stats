@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack">
@@ -13,15 +14,14 @@
         android:textColor="@color/colorPrimary"
         android:ems="10"
         android:id="@+id/main_title"
-        android:layout_above="@+id/gtInput"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="75dp" />
+        android:layout_marginTop="85dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:maxLines="1"
         android:maxLength="15"
@@ -29,29 +29,32 @@
         android:background="@color/colorWhite"
         android:textColor="@color/colorBlack"
         android:textColorHint="@color/colorBlack"
-        android:id="@+id/gtInput"
-        android:hint="@string/gamertag_input" />
+        android:id="@+id/gt_input"
+        android:hint="@string/gamertag_input"
+        android:layout_alignTop="@+id/main_title"
+        android:layout_marginTop="175dp" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/gtInput"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/getStatsButton"
+        android:id="@+id/stats_button"
         android:text="@string/stats_button_text"
         android:gravity="center"
         android:background="@drawable/stats_button_bg"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary"
+        android:layout_alignBottom="@+id/invalid_gt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/getStatsButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:id="@+id/invalid_gt"
         android:textColor="@color/colorAccent"
         android:text="@string/gt_not_found"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp" />
 
 </RelativeLayout>
