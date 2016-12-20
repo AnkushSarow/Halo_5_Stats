@@ -4,7 +4,14 @@
     <string name="gamertag_input">Enter a gamertag</string>
     <string name="stats_button_text">Get stats</string>
     <string name="gt_not_found">Gamertag not found, please try again.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temp_value">0</string>
+    <string name="rank">Highest rank obtained:</string>
+    <string name="kills">Total kills:</string>
+    <string name="deaths">Total deaths:</string>
+    <string name="kd_ratio">K/D ratio:</string>
+    <string name="playtime">Total playtime:</string>
+    <string name="wins">Total wins:</string>
+    <string name="losses">Total losses:</string>
+    <string name="wl_ratio">Win/Loss ratio:</string>
+    <string name="hello_blank_fragment"></string>
 </resources>

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,8 @@ import android.support.v7.widget.Toolbar;
  */
 public class StatsActivity extends AppCompatActivity {
     private String userGT;
+    //Send key for the bundle's message to the fragments
+    private final String USER_TAG = "user tag";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,7 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         Intent intent = getIntent();
-        userGT = intent.getStringExtra("USER_GT");
+        userGT = intent.getStringExtra(USER_TAG);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -32,6 +35,7 @@ public class StatsActivity extends AppCompatActivity {
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle(userGT);
         }
 
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
@@ -56,13 +60,22 @@ public class StatsActivity extends AppCompatActivity {
         //warzone
         @Override
         public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putString(USER_TAG, userGT);
+
             switch (position) {
                 case 0:
-                    return new OverviewFragment();
+                    OverviewFragment overviewFragment = new OverviewFragment();
+                    overviewFragment.setArguments(bundle);
+                    return overviewFragment;
                 case 1:
-                    return new ArenaFragment();
+                    ArenaFragment arenaFragment = new ArenaFragment();
+                    arenaFragment.setArguments(bundle);
+                    return arenaFragment;
                 case 2:
-                    return new WarzoneFragment();
+                    WarzoneFragment warzoneFragment = new WarzoneFragment();
+                    warzoneFragment.setArguments(bundle);
+                    return warzoneFragment;
                 default:
                     return null;
             }

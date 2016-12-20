@@ -51,7 +51,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/invalid_gt"
         android:textColor="@color/colorAccent"
-        android:text="@string/gt_not_found"
         android:visibility="invisible"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

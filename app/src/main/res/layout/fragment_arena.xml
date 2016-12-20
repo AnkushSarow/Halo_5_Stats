@@ -1,13 +1,205 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.ankushsarow.halo5stats.ArenaFragment">
+    android:layout_height="wrap_content">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/layout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/nested_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/highest_rank"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/rank"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/highest_rank_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nested_layout_2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/total_kills"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/kills"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+            <TextView
+                android:id="@+id/total_kills_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nested_layout_3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/total_deaths"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/deaths"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+            <TextView
+                android:id="@+id/total_deaths_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nested_layout_4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/kd_ratio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/kd_ratio"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+            <TextView
+                android:id="@+id/kd_ratio_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nested_layout_5"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/total_playtime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/playtime"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+            <TextView
+                android:id="@+id/total_playtime_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nested_layout_6"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/total_wins"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/wins"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+            <TextView
+                android:id="@+id/total_wins_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nested_layout_7"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/total_losses"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/losses"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+            <TextView
+                android:id="@+id/total_losses_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nested_layout_8"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/wl_ratio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/wl_ratio"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+            <TextView
+                android:id="@+id/wl_ratio_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:text="@string/temp_value" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
