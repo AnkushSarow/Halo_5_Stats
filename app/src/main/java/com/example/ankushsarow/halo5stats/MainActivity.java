@@ -1,5 +1,6 @@
 package com.example.ankushsarow.halo5stats;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private final String EMPTY_INPUT_MSG = "Please enter a valid Gamertag.";
     private final String GT_NOT_FOUND_MSG = "Gamertag not found, please try again.";
     private final String SERVICE_ERROR_MSG = "Stats not currently retrievable, please try again.";
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         gtInput = (EditText) findViewById(R.id.gt_input);
         invalidText = (TextView) findViewById(R.id.invalid_gt);
         statsButton = (Button) findViewById(R.id.stats_button);
-
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         /**
          * Handle the user pressing the enter key on input into the EditText field
          * by hiding the keyboard
@@ -86,50 +89,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
     /**
      * The purpose of this class is to see if the gamertag input in the text field
      * returns a valid response from the Halo API - It will do so by checking the value
      * returned from "ResultCode" - 0 Indicates a success, 1 indicates the GT was not found
      * 2 indicates service failure and 3 indicates service unavailable
      */
-    public class checkGTTask extends AsyncTask<Void, Void, String> {
+    private class checkGTTask extends AsyncTask<Void, Void, Integer> {
         String urlUserGT = userGT.replaceAll(" ", "%20");
         private final String URL_STRING =
                 "https://www.haloapi.com/stats/h5/servicerecords/custom?players=" + urlUserGT;
+        private final String USER_SR = "user sr";
+        private String userSR;
 
         @Override
-        public void onPreExecute() {
+        protected void onPreExecute() {
+            super.onPreExecute();
             statsButton.setEnabled(false);
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
-        protected String doInBackground(Void... voids) {
+        protected Integer doInBackground(Void... voids) {
             HttpURLConnection httpURLConnection = null;
+            int resultCode = -1;
 
             try {
                 URL url = new URL(URL_STRING);
@@ -150,13 +133,25 @@ public class MainActivity extends AppCompatActivity {
                 if (reader != null) {
                     reader.close();
                 }
-                return sb.toString();
+
+                try {
+                    JSONObject jObject = new JSONObject(sb.toString());
+                    JSONArray jArray = jObject.getJSONArray("Results");
+                    JSONObject jObjectCode = jArray.getJSONObject(0);
+                    resultCode = jObjectCode.getInt("ResultCode");
+                    userSR = String.valueOf(jObjectCode.getJSONObject("Result").
+                            getInt("SpartanRank"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return -1;
+                }
+                return resultCode;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-                return null;
+                return -1;
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
+                return -1;
             } finally {
                 if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
@@ -165,24 +160,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onPostExecute(String response) {
+        protected void onPostExecute(Integer response) {
             super.onPostExecute(response);
-            int resultCode = -1;
+            progressBar.setVisibility(View.INVISIBLE);
 
-            if (response == null) {
-                validGT = false;
-                resultCode = -1;
-            } else {
-                //Retrieve the resultCode value
-                try {
-                    JSONObject jObject = new JSONObject(response);
-                    JSONArray jArray = jObject.getJSONArray("Results");
-                    JSONObject jObjectCode = jArray.getJSONObject(0);
-                    resultCode = jObjectCode.getInt("ResultCode");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            int resultCode = response;
 
             //If a valid GT was entered, start the StatsActivity
             if (resultCode == 0) {
@@ -191,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(MainActivity.this, StatsActivity.class);
                 intent.putExtra(USER_TAG, userGT);
+                intent.putExtra(USER_SR, userSR);
                 startActivity(intent);
             } else if (resultCode == 1){
                 //GT input was not valid

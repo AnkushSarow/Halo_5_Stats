@@ -1,13 +1,257 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/outer_layout_W"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.ankushsarow.halo5stats.WarzoneFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scroll_view_W"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/layout_W"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/kills_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_kills_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/kills"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_kills_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/deaths_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_deaths_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/deaths"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_deaths_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/assists_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_assists_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/assists"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_assists_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kdRatio_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/kd_ratio_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/kd_ratio"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/kd_ratio_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <View style="@style/Line_divider" />
+
+            <LinearLayout
+                android:id="@+id/playtime_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_playtime_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/playtime"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_playtime_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/gamesPlayed_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_games_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/games_played"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_games_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wins_layout_8_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_wins_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/wins"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_wins_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/losses_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_losses_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/losses"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_losses_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wlRatio_layout_W"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/wl_ratio_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/wl_ratio"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/wl_ratio_value_W"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/pBar_W"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        style="?android:attr/progressBarStyle"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>

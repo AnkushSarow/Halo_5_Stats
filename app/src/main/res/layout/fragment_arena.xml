@@ -1,205 +1,329 @@
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/layout"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
-            android:id="@+id/nested_layout"
-            android:orientation="horizontal"
+            android:id="@+id/layout"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/highest_rank"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/rank"
-                android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/highest_rank_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
+
+            <RelativeLayout
+                android:id="@+id/rank_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+                <TextView
+                    android:id="@+id/highest_rank"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="2dp"
+                    android:maxLines="1"
+                    android:text="@string/rank"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/rank_value"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value"
+                    android:layout_below="@+id/highest_rank"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true" />
+
+                <TextView
+                    android:id="@+id/rank_csr"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/highest_rank"
+                    android:layout_toRightOf="@+id/rank_value"
+                    android:layout_toEndOf="@+id/rank_value"
+                    android:layout_alignParentBottom="true" />
+
+                <TextView
+                    android:id="@+id/rank_tier"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/rank_value"
+                    android:layout_toEndOf="@+id/rank_value"
+                    android:layout_below="@+id/highest_rank" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rankImg"
+                    android:layout_alignTop="@+id/highest_rank"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/highest_rank"
+                    android:layout_toEndOf="@+id/highest_rank"
+                    android:contentDescription="@string/image_of_rank" />
+            </RelativeLayout>
+
+            <View style="@style/Line_divider" />
+
+            <LinearLayout
+                android:id="@+id/kills_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_kills"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/kills"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_kills_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
             </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/nested_layout_2"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/total_kills"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/kills"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-            <TextView
-                android:id="@+id/total_kills_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/deaths_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_deaths"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/deaths"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_deaths_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/nested_layout_3"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/total_deaths"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/deaths"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-            <TextView
-                android:id="@+id/total_deaths_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/assists_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_assists"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/assists"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_assists_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/nested_layout_4"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/kd_ratio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/kd_ratio"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-            <TextView
-                android:id="@+id/kd_ratio_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/kdRatio_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/kd_ratio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/kd_ratio"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/kd_ratio_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/nested_layout_5"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/total_playtime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/playtime"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-            <TextView
-                android:id="@+id/total_playtime_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
-        </LinearLayout>
+            <View style="@style/Line_divider" />
 
-        <LinearLayout
-            android:id="@+id/nested_layout_6"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/total_wins"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/wins"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-            <TextView
-                android:id="@+id/total_wins_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/playtime_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_playtime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/playtime"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_playtime_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/nested_layout_7"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/total_losses"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/losses"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-            <TextView
-                android:id="@+id/total_losses_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/gamesPlayed_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_games"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/games_played"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_games_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/nested_layout_8"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/wl_ratio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/wl_ratio"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-            <TextView
-                android:id="@+id/wl_ratio_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp"
-                android:text="@string/temp_value" />
+            <LinearLayout
+                android:id="@+id/wins_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_wins"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/wins"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_wins_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/losses_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_losses"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/losses"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/total_losses_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wlRatio_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/wl_ratio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/wl_ratio"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/wl_ratio_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:text="@string/temp_value" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/pBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        style="?android:attr/progressBarStyle"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>

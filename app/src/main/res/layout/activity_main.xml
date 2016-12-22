@@ -56,4 +56,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyle"
+        android:layout_alignTop="@+id/invalid_gt"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
+
 </RelativeLayout>

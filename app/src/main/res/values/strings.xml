@@ -14,4 +14,7 @@
     <string name="losses">Total losses:</string>
     <string name="wl_ratio">Win/Loss ratio:</string>
     <string name="hello_blank_fragment"></string>
+    <string name="image_of_rank">image_of_rank</string>
+    <string name="assists">Total assists:</string>
+    <string name="games_played">Games played:</string>
 </resources>
