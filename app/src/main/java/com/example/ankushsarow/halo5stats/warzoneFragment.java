@@ -28,26 +28,28 @@ import java.util.HashMap;
 public class WarzoneFragment extends Fragment {
     private String userGT;
     private final String USER_TAG = "user tag";
-    private final String TOTAL_KILLS = "total_kills";
-    private final String TOTAL_DEATHS = "total_deaths";
-    private final String TOTAL_ASSISTS = "total_assists";
-    private final String TOTAL_WINS = "total_wins";
-    private final String TOTAL_LOSSES = "total_losses";
-    private final String TOTAL_TIES = "total_ties";
-    private final String TOTAL_GAMES = "total_games";
+    private final String TOTAL_KILLS = "total kills";
+    private final String TOTAL_DEATHS = "total deaths";
+    private final String TOTAL_ASSISTS = "total assists";
+    private final String TOTAL_WINS = "total wins";
+    private final String TOTAL_LOSSES = "total losses";
+    private final String TOTAL_TIES = "total ties";
+    private final String TOTAL_GAMES = "total games";
+    private final String TOTAL_MELEES = "total melees";
+    private final String TOTAL_GP = "total gp";
+    private final String TOTAL_ASSASSINATIONS = "total assassinations";
+    private final String TOTAL_SC = "total sc";
+    private final String TOTAL_PW = "total pw";
+    private final String TOTAL_GRENADE = "total grenade";
+
 
     private HashMap<String, Integer> warzoneData;
 
-    private TextView killsText;
-    private TextView deathsText;
-    private TextView assistsText;
-    private TextView winsText;
-    private TextView lossesText;
-    private TextView tiesText;
-    private TextView gamesPlayedText;
-    private TextView wlRatioText;
-    private TextView kdRatioText;
+    private TextView killsText, deathsText, assistsText, winsText, lossesText, tiesText,
+            gamesPlayedText, wlRatioText, kdRatioText, meleesText, gpText, assassText,
+            scText, pwText, grenadeText;
     private ProgressBar progressBar;
+    private View blank;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class WarzoneFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_warzone, container, false);
-
+        blank = view.findViewById(R.id.blank);
         killsText = (TextView) view.findViewById(R.id.total_kills_value_W);
         deathsText = (TextView) view.findViewById(R.id.total_deaths_value_W);
         assistsText = (TextView) view.findViewById(R.id.total_assists_value_W);
@@ -71,7 +73,14 @@ public class WarzoneFragment extends Fragment {
         lossesText = (TextView) view.findViewById(R.id.total_losses_value_W);
         tiesText = (TextView) view.findViewById(R.id.total_ties_value_W);
         wlRatioText = (TextView) view.findViewById(R.id.wl_ratio_value_W);
+        meleesText = (TextView) view.findViewById(R.id.melee_kills_value);
+        gpText = (TextView) view.findViewById(R.id.ground_pounds_value);
+        assassText = (TextView) view.findViewById(R.id.assassinations_value);
+        scText = (TextView) view.findViewById(R.id.spartan_charges_value);
+        pwText = (TextView) view.findViewById(R.id.power_weapon_value);
+        grenadeText = (TextView) view.findViewById(R.id.grenade_kills_value);
         progressBar = (ProgressBar) view.findViewById(R.id.pBar_W);
+
         new LoadWarzoneData().execute();
 
         return view;
@@ -100,6 +109,13 @@ public class WarzoneFragment extends Fragment {
             wlRatioText.setText(String.format("%.2f", ((double) warzoneData.get(TOTAL_WINS) /
                     warzoneData.get(TOTAL_LOSSES))));
         }
+
+        meleesText.setText(String.valueOf(warzoneData.get(TOTAL_MELEES)));
+        gpText.setText(String.valueOf(warzoneData.get(TOTAL_GP)));
+        scText.setText(String.valueOf(warzoneData.get(TOTAL_SC)));
+        pwText.setText(String.valueOf(warzoneData.get(TOTAL_PW)));
+        grenadeText.setText(String.valueOf(warzoneData.get(TOTAL_GRENADE)));
+        assassText.setText(String.valueOf(warzoneData.get(TOTAL_ASSASSINATIONS)));
     }
     /**
      * Retrieve the stats needed for the WarzoneFragment from the Halo API
@@ -113,6 +129,7 @@ public class WarzoneFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
+            blank.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -152,6 +169,14 @@ public class WarzoneFragment extends Fragment {
                     warzoneData.put(TOTAL_ASSISTS, warzoneStatsNode.getInt("TotalAssists"));
                     warzoneData.put(TOTAL_GAMES, warzoneStatsNode.getInt("TotalGamesCompleted"));
                     warzoneData.put(TOTAL_TIES, warzoneStatsNode.getInt("TotalGamesTied"));
+                    warzoneData.put(TOTAL_MELEES, warzoneStatsNode.getInt("TotalMeleeKills"));
+                    warzoneData.put(TOTAL_ASSASSINATIONS, warzoneStatsNode.
+                            getInt("TotalAssassinations"));
+                    warzoneData.put(TOTAL_SC, warzoneStatsNode.getInt("TotalShoulderBashKills"));
+                    warzoneData.put(TOTAL_PW, warzoneStatsNode.getInt("TotalPowerWeaponKills"));
+                    warzoneData.put(TOTAL_GRENADE, warzoneStatsNode.getInt("TotalGrenadeKills"));
+                    warzoneData.put(TOTAL_GP, warzoneStatsNode.getInt("TotalGroundPoundKills"));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -171,6 +196,7 @@ public class WarzoneFragment extends Fragment {
         protected void onPostExecute(HashMap<String, Integer> warzoneData) {
             super.onPostExecute(warzoneData);
             progressBar.setVisibility(View.INVISIBLE);
+            blank.setVisibility(View.INVISIBLE);
             loadData();
         }
     }

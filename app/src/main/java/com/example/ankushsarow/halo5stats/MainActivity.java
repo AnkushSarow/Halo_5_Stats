@@ -1,6 +1,5 @@
 package com.example.ankushsarow.halo5stats;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -26,6 +25,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Main activity - Present user a text field to input their GT and a stats button to retrieve
+ * the stats
+ */
 public class MainActivity extends AppCompatActivity {
     private EditText gtInput;
     private TextView invalidText;

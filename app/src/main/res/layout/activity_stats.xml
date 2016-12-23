@@ -17,25 +17,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/gtText"
+                android:text="@string/main_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:textColor="@color/colorBlack"
                 android:gravity="center_vertical"
                 android:textSize="20sp"/>
 
-            <TextView
-                android:id="@+id/srank"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@color/colorBlack"
-                android:gravity="center_vertical"
-                android:textSize="20sp"/>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 

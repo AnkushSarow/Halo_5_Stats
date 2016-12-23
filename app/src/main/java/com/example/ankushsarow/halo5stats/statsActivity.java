@@ -9,6 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 /**
@@ -22,6 +25,8 @@ public class StatsActivity extends AppCompatActivity {
     //Send key for the bundle's message to the fragments
     private final String USER_TAG = "user tag";
     private final String USER_SR = "user sr";
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +35,42 @@ public class StatsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         userGT = intent.getStringExtra(USER_TAG);
-        userSR = "SR: " + intent.getStringExtra(USER_SR);
+        userSR = intent.getStringExtra(USER_SR);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        TextView gamertag = (TextView) findViewById(R.id.gtText);
-        TextView sRank = (TextView) findViewById(R.id.srank);
-        gamertag.setText(userGT);
-        sRank.setText(userSR);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(1);
+
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            //getSupportActionBar().setTitle(userGT);
         }
 
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    //Handle the refresh icon being pressed
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                int tabPosition = tabLayout.getSelectedTabPosition();
+                viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+                viewPager.setCurrentItem(tabPosition);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public class PagerAdapter extends FragmentPagerAdapter {
@@ -69,6 +93,7 @@ public class StatsActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             Bundle bundle = new Bundle();
             bundle.putString(USER_TAG, userGT);
+            bundle.putString(USER_SR, userSR);
 
             switch (position) {
                 case 0:

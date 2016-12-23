@@ -13,7 +13,6 @@
     <string name="wins">Wins:</string>
     <string name="losses">Losses:</string>
     <string name="wl_ratio">W/L</string>
-    <string name="hello_blank_fragment"></string>
     <string name="image_of_rank">image_of_rank</string>
     <string name="assists">Assists:</string>
     <string name="games_played">Matches:</string>
@@ -26,4 +25,15 @@
     <string name="shots_landed">Shots landed:</string>
     <string name="top_wep">Top weapon:</string>
     <string name="image_of_weapon">weapon image</string>
+    <string name="image_of_spartan">image_of_spartan</string>
+    <string name="image_of_emblem">emblem image</string>
+    <string name="spartan_text">Spartan:</string>
+    <string name="spartan_rank">SR:</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="total_melee_kills">Melee kills:</string>
+    <string name="total_assassinations">Assasinations:</string>
+    <string name="total_ground_pounds">Groundpounds:</string>
+    <string name="total_spartan_charges">Spartan charges:</string>
+    <string name="total_pw_kills">Power weapon kills:</string>
+    <string name="total_grenade_kills">Grenade kills:</string>
 </resources>

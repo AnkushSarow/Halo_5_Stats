@@ -1,5 +1,7 @@
 package com.example.ankushsarow.halo5stats;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,19 +29,19 @@ import java.util.HashMap;
  * Arena fragment for the arena tab - This fragment will display the user's Arena stats
  */
 public class ArenaFragment extends Fragment {
-    private String userGT;
+    private String userGT, userSR;
     private final String USER_TAG = "user tag";
-
-    private final String HIGHEST_RANK = "highest_rank";
-    private final String RANK_TIER = "rank_tier";
+    private final String USER_SR = "user sr";
+    private final String HIGHEST_RANK = "highest rank";
+    private final String RANK_TIER = "rank tier";
     private final String CSR = "csr";
-    private final String TOTAL_KILLS = "total_kills";
-    private final String TOTAL_DEATHS = "total_deaths";
-    private final String TOTAL_ASSISTS = "total_assists";
-    private final String TOTAL_WINS = "total_wins";
-    private final String TOTAL_LOSSES = "total_losses";
-    private final String TOTAL_TIES = "total_ties";
-    private final String TOTAL_GAMES = "total_games";
+    private final String TOTAL_KILLS = "total kills";
+    private final String TOTAL_DEATHS = "total deaths";
+    private final String TOTAL_ASSISTS = "total assists";
+    private final String TOTAL_WINS = "total wins";
+    private final String TOTAL_LOSSES = "total losses";
+    private final String TOTAL_TIES = "total ties";
+    private final String TOTAL_GAMES = "total games";
     private final String[] RANK_TAGS = {"Unranked", "Bronze", "Silver", "Gold", "Platinum",
             "Diamond", "Onyx", "Champion"};
     private final String[] WEAPON_STATS = {"TotalWeaponKills", "TotalShotsFired", "TotalShotsLanded",
@@ -48,25 +50,12 @@ public class ArenaFragment extends Fragment {
     private HashMap<String, Integer> arenaData;
     private HashMap<Long, String> weaponData;
 
-    private TextView killsText;
-    private TextView deathsText;
-    private TextView assistsText;
-    private TextView rankText;
-    private TextView rankTierText;
-    private TextView csrText;
-    private TextView gamesPlayedText;
-    private TextView winsText;
-    private TextView lossesText;
-    private TextView wlRatioText;
-    private TextView kdRatioText;
-    private TextView tiesText;
-    private TextView weaponNameText;
-    private TextView weaponKillsText;
-    private TextView weaponSFText;
-    private TextView weaponSLText;
-    private TextView weaponHSText;
-    private TextView weaponAccText;
-    private ImageView rankImage;
+    private TextView killsText, deathsText, assistsText, rankText, rankTierText, csrText,
+        gamesPlayedText, winsText, lossesText, wlRatioText, kdRatioText, tiesText, weaponNameText,
+        weaponKillsText, weaponSFText, weaponSLText, weaponHSText, weaponAccText, gtText, srText;
+    private View blank;
+
+    private ImageView rankImage, profileImage;
     private ProgressBar progressBar;
 
 
@@ -74,6 +63,7 @@ public class ArenaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userGT = getArguments().getString(USER_TAG);
+        userSR = getArguments().getString(USER_SR);
         arenaData = new HashMap<>();
         weaponData = new HashMap<>();
     }
@@ -83,6 +73,14 @@ public class ArenaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_arena, container, false);
+
+        blank = view.findViewById(R.id.blank);
+
+        gtText = (TextView) view.findViewById(R.id.spartan_text_value);
+        srText = (TextView) view.findViewById(R.id.spartan_rank_value);
+        gtText.setText(userGT);
+        srText.setText(userSR);
+
         rankText = (TextView) view.findViewById(R.id.rank_value);
         rankTierText = (TextView) view.findViewById(R.id.rank_tier);
         csrText = (TextView) view.findViewById(R.id.rank_csr);
@@ -108,13 +106,16 @@ public class ArenaFragment extends Fragment {
         weaponHSText = (TextView) view.findViewById(R.id.top_wep_hs_val);
         weaponAccText = (TextView) view.findViewById(R.id.top_wep_acc_val);
 
+        profileImage = (ImageView) view.findViewById(R.id.profile_image);
+
+        new LoadProfileImage().execute();
         new LoadArenaData().execute();
         new LoadWeaponMetaData().execute();
         return view;
     }
 
     /**
-     * Load the data from the hashmap into the appropiate views
+     * Load the data from the hashmap into the corresponding views
      */
     private void loadData() {
         setRankVals();
@@ -228,6 +229,7 @@ public class ArenaFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            blank.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
 
@@ -307,6 +309,7 @@ public class ArenaFragment extends Fragment {
         protected void onPostExecute(HashMap<String, Integer> arenaData) {
             super.onPostExecute(arenaData);
             progressBar.setVisibility(View.INVISIBLE);
+            blank.setVisibility(View.INVISIBLE);
             loadData();
         }
     }
@@ -374,6 +377,59 @@ public class ArenaFragment extends Fragment {
             super.onPostExecute(weaponData);
             progressBar.setVisibility(View.INVISIBLE);
             loadWeaponData();
+        }
+    }
+
+    /**
+     * Retrieve the users profile image
+     */
+    private class LoadProfileImage extends AsyncTask<Void, Void, Bitmap> {
+        private String urlUserGT = userGT.replaceAll(" ", "%20");
+        private final String URL_STRING =
+                "https://www.haloapi.com/profile/h5/profiles/" + urlUserGT + "/spartan";
+        Bitmap profileImg;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... voids) {
+            HttpURLConnection httpURLConnection = null;
+
+            try {
+                URL url = new URL(URL_STRING);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestProperty("Ocp-Apim-Subscription-Key",
+                        "API KEY");
+                httpURLConnection.connect();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                profileImg = BitmapFactory.decodeStream(inputStream);
+
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+            }
+            return profileImg;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap profileImg) {
+            super.onPostExecute(profileImg);
+            progressBar.setVisibility(View.INVISIBLE);
+            profileImage.setImageBitmap(profileImg);
         }
     }
 }

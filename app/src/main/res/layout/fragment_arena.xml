@@ -18,6 +18,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:id="@+id/profile_layout"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/image_of_spartan"
+                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/spartan_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:text="@string/spartan_text"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/spartan_text_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/temp_value"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="25sp"/>
+                    <TextView
+                        android:id="@+id/spartan_rank_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:gravity="center"
+                        android:text="@string/spartan_rank"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/spartan_rank_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/temp_value"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="25sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/rank_layout"
                 android:layout_width="match_parent"
@@ -30,7 +85,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="5dp"
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@string/rank"
@@ -535,8 +589,20 @@
                     android:layout_weight="1"/>
             </LinearLayout>
 
+            <View
+                android:layout_marginTop="10dp"
+                style="@style/Line_divider" />
+
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:id="@+id/blank"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        android:visibility="invisible"
+        />
 
     <ProgressBar
         android:id="@+id/pBar"
