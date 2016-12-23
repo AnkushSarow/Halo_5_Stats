@@ -28,12 +28,12 @@ import java.util.HashMap;
 public class WarzoneFragment extends Fragment {
     private String userGT;
     private final String USER_TAG = "user tag";
-    private String playtime;
     private final String TOTAL_KILLS = "total_kills";
     private final String TOTAL_DEATHS = "total_deaths";
     private final String TOTAL_ASSISTS = "total_assists";
     private final String TOTAL_WINS = "total_wins";
     private final String TOTAL_LOSSES = "total_losses";
+    private final String TOTAL_TIES = "total_ties";
     private final String TOTAL_GAMES = "total_games";
 
     private HashMap<String, Integer> warzoneData;
@@ -41,9 +41,9 @@ public class WarzoneFragment extends Fragment {
     private TextView killsText;
     private TextView deathsText;
     private TextView assistsText;
-    private TextView playtimeText;
     private TextView winsText;
     private TextView lossesText;
+    private TextView tiesText;
     private TextView gamesPlayedText;
     private TextView wlRatioText;
     private TextView kdRatioText;
@@ -66,10 +66,10 @@ public class WarzoneFragment extends Fragment {
         deathsText = (TextView) view.findViewById(R.id.total_deaths_value_W);
         assistsText = (TextView) view.findViewById(R.id.total_assists_value_W);
         kdRatioText = (TextView) view.findViewById(R.id.kd_ratio_value_W);
-        playtimeText = (TextView) view.findViewById(R.id.total_playtime_value_W);
         gamesPlayedText = (TextView) view.findViewById(R.id.total_games_value_W);
         winsText = (TextView) view.findViewById(R.id.total_wins_value_W);
         lossesText = (TextView) view.findViewById(R.id.total_losses_value_W);
+        tiesText = (TextView) view.findViewById(R.id.total_ties_value_W);
         wlRatioText = (TextView) view.findViewById(R.id.wl_ratio_value_W);
         progressBar = (ProgressBar) view.findViewById(R.id.pBar_W);
         new LoadWarzoneData().execute();
@@ -92,6 +92,7 @@ public class WarzoneFragment extends Fragment {
         gamesPlayedText.setText(String.valueOf(warzoneData.get(TOTAL_GAMES)));
         winsText.setText(String.valueOf(warzoneData.get(TOTAL_WINS)));
         lossesText.setText(String.valueOf(warzoneData.get(TOTAL_LOSSES)));
+        tiesText.setText(String.valueOf(warzoneData.get(TOTAL_TIES)));
 
         if (warzoneData.get(TOTAL_LOSSES) == 0) {
             wlRatioText.setText(String.valueOf((double) warzoneData.get(TOTAL_WINS)));
@@ -144,29 +145,26 @@ public class WarzoneFragment extends Fragment {
                     JSONObject resultNode = resultsNode.getJSONObject("Result");
                     JSONObject warzoneStatsNode = resultNode.getJSONObject("WarzoneStat");
 
-                    warzoneData.put(TOTAL_KILLS, warzoneStatsNode.getInt("TotalSpartanKills"));
+                    warzoneData.put(TOTAL_KILLS, warzoneStatsNode.getInt("TotalKills"));
                     warzoneData.put(TOTAL_DEATHS, warzoneStatsNode.getInt("TotalDeaths"));
                     warzoneData.put(TOTAL_WINS, warzoneStatsNode.getInt("TotalGamesWon"));
                     warzoneData.put(TOTAL_LOSSES, warzoneStatsNode.getInt("TotalGamesLost"));
                     warzoneData.put(TOTAL_ASSISTS, warzoneStatsNode.getInt("TotalAssists"));
                     warzoneData.put(TOTAL_GAMES, warzoneStatsNode.getInt("TotalGamesCompleted"));
-                    playtime = warzoneStatsNode.getString("TotalTimePlayed");
-
+                    warzoneData.put(TOTAL_TIES, warzoneStatsNode.getInt("TotalGamesTied"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return warzoneData;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-                return null;
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
             } finally {
                 if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
                 }
             }
+            return warzoneData;
         }
 
         @Override

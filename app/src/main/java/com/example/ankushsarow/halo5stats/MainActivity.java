@@ -143,20 +143,17 @@ public class MainActivity extends AppCompatActivity {
                             getInt("SpartanRank"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    return -1;
                 }
-                return resultCode;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-                return -1;
             } catch (IOException e) {
                 e.printStackTrace();
-                return -1;
             } finally {
                 if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
                 }
             }
+            return resultCode;
         }
 
         @Override

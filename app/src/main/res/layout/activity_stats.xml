@@ -36,9 +36,7 @@
                 android:textColor="@color/colorBlack"
                 android:gravity="center_vertical"
                 android:textSize="20sp"/>
-
         </LinearLayout>
-
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
@@ -56,6 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:background="@color/colorWhite" />
+        android:background="@color/colorBlack" />
 
 </LinearLayout>

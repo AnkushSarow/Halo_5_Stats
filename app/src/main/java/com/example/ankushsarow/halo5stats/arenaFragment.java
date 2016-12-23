@@ -30,7 +30,6 @@ public class ArenaFragment extends Fragment {
     private String userGT;
     private final String USER_TAG = "user tag";
 
-    private String playtime;
     private final String HIGHEST_RANK = "highest_rank";
     private final String RANK_TIER = "rank_tier";
     private final String CSR = "csr";
@@ -39,10 +38,15 @@ public class ArenaFragment extends Fragment {
     private final String TOTAL_ASSISTS = "total_assists";
     private final String TOTAL_WINS = "total_wins";
     private final String TOTAL_LOSSES = "total_losses";
+    private final String TOTAL_TIES = "total_ties";
     private final String TOTAL_GAMES = "total_games";
     private final String[] RANK_TAGS = {"Unranked", "Bronze", "Silver", "Gold", "Platinum",
             "Diamond", "Onyx", "Champion"};
+    private final String[] WEAPON_STATS = {"TotalWeaponKills", "TotalShotsFired", "TotalShotsLanded",
+            "TotalHeadShots"};
+    private Long mostUsedWeaponID;
     private HashMap<String, Integer> arenaData;
+    private HashMap<Long, String> weaponData;
 
     private TextView killsText;
     private TextView deathsText;
@@ -50,26 +54,33 @@ public class ArenaFragment extends Fragment {
     private TextView rankText;
     private TextView rankTierText;
     private TextView csrText;
-    private ImageView rankImage;
-    private TextView playtimeText;
     private TextView gamesPlayedText;
     private TextView winsText;
     private TextView lossesText;
     private TextView wlRatioText;
     private TextView kdRatioText;
+    private TextView tiesText;
+    private TextView weaponNameText;
+    private TextView weaponKillsText;
+    private TextView weaponSFText;
+    private TextView weaponSLText;
+    private TextView weaponHSText;
+    private TextView weaponAccText;
+    private ImageView rankImage;
     private ProgressBar progressBar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userGT = getArguments().getString(USER_TAG);
         arenaData = new HashMap<>();
+        weaponData = new HashMap<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("ONCREATE CALLED");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_arena, container, false);
         rankText = (TextView) view.findViewById(R.id.rank_value);
@@ -83,17 +94,28 @@ public class ArenaFragment extends Fragment {
         deathsText = (TextView) view.findViewById(R.id.total_deaths_value);
         assistsText = (TextView) view.findViewById(R.id.total_assists_value);
         kdRatioText = (TextView) view.findViewById(R.id.kd_ratio_value);
-        playtimeText = (TextView) view.findViewById(R.id.total_playtime_value);
         gamesPlayedText = (TextView) view.findViewById(R.id.total_games_value);
         winsText = (TextView) view.findViewById(R.id.total_wins_value);
         lossesText = (TextView) view.findViewById(R.id.total_losses_value);
+        tiesText = (TextView) view.findViewById(R.id.total_ties_value);
         wlRatioText = (TextView) view.findViewById(R.id.wl_ratio_value);
         progressBar = (ProgressBar) view.findViewById(R.id.pBar);
-        new LoadArenaData().execute();
 
+        weaponNameText = (TextView) view.findViewById(R.id.top_wep_value);
+        weaponKillsText = (TextView) view.findViewById(R.id.top_wep_kills_val);
+        weaponSFText = (TextView) view.findViewById(R.id.top_wep_sf_val);
+        weaponSLText = (TextView) view.findViewById(R.id.top_wep_sl_val);
+        weaponHSText = (TextView) view.findViewById(R.id.top_wep_hs_val);
+        weaponAccText = (TextView) view.findViewById(R.id.top_wep_acc_val);
+
+        new LoadArenaData().execute();
+        new LoadWeaponMetaData().execute();
         return view;
     }
 
+    /**
+     * Load the data from the hashmap into the appropiate views
+     */
     private void loadData() {
         setRankVals();
 
@@ -111,6 +133,7 @@ public class ArenaFragment extends Fragment {
         gamesPlayedText.setText(String.valueOf(arenaData.get(TOTAL_GAMES)));
         winsText.setText(String.valueOf(arenaData.get(TOTAL_WINS)));
         lossesText.setText(String.valueOf(arenaData.get(TOTAL_LOSSES)));
+        tiesText.setText(String.valueOf(arenaData.get(TOTAL_TIES)));
 
         if (arenaData.get(TOTAL_LOSSES) == 0) {
             wlRatioText.setText(String.valueOf((double) arenaData.get(TOTAL_WINS)));
@@ -180,6 +203,21 @@ public class ArenaFragment extends Fragment {
     }
 
     /**
+     * Update the weapon data for the top weapon
+     */
+    private void loadWeaponData() {
+        String weaponName = weaponData.get(mostUsedWeaponID);
+        weaponNameText.setText(weaponName);
+        weaponKillsText.setText(String.valueOf(arenaData.get(WEAPON_STATS[0])));
+        weaponSFText.setText(String.valueOf(arenaData.get(WEAPON_STATS[1])));
+        weaponSLText.setText(String.valueOf(arenaData.get(WEAPON_STATS[2])));
+        weaponHSText.setText(String.valueOf(arenaData.get(WEAPON_STATS[3])));
+        String weaponAcc = String.valueOf((int) ((double) arenaData.get(WEAPON_STATS[2]) /
+                arenaData.get(WEAPON_STATS[1]) * 100)) + "%";
+        weaponAccText.setText(weaponAcc);
+    }
+
+    /**
      * Retrieve the stats needed for the ArenaFragment from the Halo API
      */
     private class LoadArenaData extends AsyncTask<Void, Void, HashMap<String, Integer>> {
@@ -235,12 +273,22 @@ public class ArenaFragment extends Fragment {
                     arenaData.put(TOTAL_LOSSES, arenaStatsNode.getInt("TotalGamesLost"));
                     arenaData.put(TOTAL_ASSISTS, arenaStatsNode.getInt("TotalAssists"));
                     arenaData.put(TOTAL_GAMES, arenaStatsNode.getInt("TotalGamesCompleted"));
-                    playtime = arenaStatsNode.getString("TotalTimePlayed");
+                    arenaData.put(TOTAL_TIES, arenaStatsNode.getInt("TotalGamesTied"));
 
+
+                    mostUsedWeaponID = arenaStatsNode.getJSONObject("WeaponWithMostKills").
+                            getJSONObject("WeaponId").getLong("StockId");
+                    arenaData.put(WEAPON_STATS[0], arenaStatsNode.getJSONObject("WeaponWithMostKills").
+                            getInt("TotalKills"));
+                    arenaData.put(WEAPON_STATS[1], arenaStatsNode.getJSONObject("WeaponWithMostKills").
+                            getInt("TotalShotsFired"));
+                    arenaData.put(WEAPON_STATS[2], arenaStatsNode.getJSONObject("WeaponWithMostKills").
+                            getInt("TotalShotsLanded"));
+                    arenaData.put(WEAPON_STATS[3], arenaStatsNode.getJSONObject("WeaponWithMostKills").
+                            getInt("TotalHeadshots"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return arenaData;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return null;
@@ -252,6 +300,7 @@ public class ArenaFragment extends Fragment {
                     httpURLConnection.disconnect();
                 }
             }
+            return arenaData;
         }
 
         @Override
@@ -259,6 +308,72 @@ public class ArenaFragment extends Fragment {
             super.onPostExecute(arenaData);
             progressBar.setVisibility(View.INVISIBLE);
             loadData();
+        }
+    }
+
+    /**
+     * Retrieve the weapon meta data from the Halo API
+     */
+    private class LoadWeaponMetaData extends AsyncTask<Void, Void, HashMap<Long, String>> {
+        private final String URL_STRING =
+                "https://www.haloapi.com/metadata/h5/metadata/weapons";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected HashMap<Long, String> doInBackground(Void... voids) {
+            HttpURLConnection httpURLConnection = null;
+
+            try {
+                URL url = new URL(URL_STRING);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestProperty("Ocp-Apim-Subscription-Key",
+                        "API KEY");
+                httpURLConnection.connect();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                StringBuffer sb = new StringBuffer();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + '\n');
+                }
+
+                if (reader != null) {
+                    reader.close();
+                }
+                try {
+                    JSONArray jArray = new JSONArray(sb.toString());
+
+                    for (int i = 0; i < jArray.length(); i++) {
+                        weaponData.put(jArray.getJSONObject(i).getLong("id"),
+                                jArray.getJSONObject(i).getString("name"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+            }
+            return weaponData;
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<Long, String> weaponData) {
+            super.onPostExecute(weaponData);
+            progressBar.setVisibility(View.INVISIBLE);
+            loadWeaponData();
         }
     }
 }
