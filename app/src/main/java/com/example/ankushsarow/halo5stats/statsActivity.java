@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 /**
  * This class will represent the StatsActivity for the application. This Activity will consist
- * of the main toolbar and a tabbed layout with 3 tabs (overview, arena, and warzone). Each
+ * of the main toolbar and a tabbed layout with 2 tabs (arena, and warzone). Each
  * tab will display different stats. This will be done by using fragments.
  */
 public class StatsActivity extends AppCompatActivity {
