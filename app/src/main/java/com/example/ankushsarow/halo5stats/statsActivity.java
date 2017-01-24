@@ -74,7 +74,6 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     public class PagerAdapter extends FragmentPagerAdapter {
-        //number of tabs (3)
         private final int COUNT = 2;
         private final String[] tabTitles = {"Arena", "Warzone"};
 
@@ -87,7 +86,7 @@ public class StatsActivity extends AppCompatActivity {
             return tabTitles[position];
         }
 
-        //Retrieve the fragment based on the position passed in (0 - overview, 1 - arena, 2 -
+        //Retrieve the fragment based on the position passed in (0 - arena, 1 -
         //warzone
         @Override
         public Fragment getItem(int position) {
