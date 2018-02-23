@@ -2,7 +2,7 @@
  The Halo 5 Stats app is an Android application that allows users to lookup the stats of any valid Xbox Live gamertag. 
  
 # Purpose 
-The purpose of this app was to combine to things - Passion for my favorite video game (Halo) and my first attempt at mobile development. This project was done over winter break. Things I have learned via this experience - 
+The purpose of this app was to combine two things - Passion for my favorite video game (Halo) and my first attempt at mobile development. This project was done over winter break. Things I have learned via this experience - 
 interacting with APIs, understand asyncronous tasks, Android development, user-interace design + XML.
  
 ![Icon](https://github.com/AnkushSarow/Halo_5_Stats/blob/master/ic_launcher.png)
